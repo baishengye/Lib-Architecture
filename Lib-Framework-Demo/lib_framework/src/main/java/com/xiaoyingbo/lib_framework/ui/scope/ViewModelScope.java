@@ -26,7 +26,7 @@ public class ViewModelScope {
 
     public <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
         if (mApplicationProvider == null)
-            mApplicationProvider = new ViewModelProvider(com.kunminx.architecture.ui.scope.ApplicationInstance.getInstance());
+            mApplicationProvider = new ViewModelProvider(ApplicationInstance.getInstance());
         return mApplicationProvider.get(modelClass);
     }
 }
