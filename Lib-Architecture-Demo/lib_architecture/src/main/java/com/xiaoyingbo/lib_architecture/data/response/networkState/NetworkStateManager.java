@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.xiaoyingbo.lib_util.Utils;
+import com.xiaoyingbo.lib_util.BSY.BSYUtils;
 
 /**
  * Create by KunMinX at 19/10/11
@@ -50,11 +50,11 @@ public class NetworkStateManager implements DefaultLifecycleObserver{
     @Override
     public void onResume(@NonNull LifecycleOwner owner) {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        Utils.getApp().getApplicationContext().registerReceiver(mNetworkStateReceive, filter);
+        BSYUtils.getApp().getApplicationContext().registerReceiver(mNetworkStateReceive, filter);
     }
 
     @Override
     public void onPause(@NonNull LifecycleOwner owner) {
-        Utils.getApp().getApplicationContext().unregisterReceiver(mNetworkStateReceive);
+        BSYUtils.getApp().getApplicationContext().unregisterReceiver(mNetworkStateReceive);
     }
 }

@@ -1,11 +1,16 @@
 package com.xiaoyingbo.lib_architecture.ui.page;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,31 +20,28 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
 public abstract class DataBindingFragment extends Fragment {
-    /**此Fragment所依附的Activity*/
-    protected AppCompatActivity mActivity;
 
+    protected AppCompatActivity mActivity;
     private ViewDataBinding mBinding;
 
-
-    /**当activity和fragment建立联系时调用*/
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mActivity=(AppCompatActivity) context;
+        mActivity = (AppCompatActivity) context;
     }
+
+    protected abstract void initViewModel();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initViewModel();
     }
 
-    protected abstract void initViewModel() ;
-
     protected abstract DataBindingConfig getDataBindingConfig();
 
-
-    protected ViewDataBinding getBinding(){
+    protected ViewDataBinding getBinding() {
         return mBinding;
     }
 
@@ -48,22 +50,25 @@ public abstract class DataBindingFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        DataBindingConfig dataBindingConfig=getDataBindingConfig();
+            @Nullable Bundle savedInstanceState
+    ) {
 
-        ViewDataBinding binding= DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container,false);
+        DataBindingConfig dataBindingConfig = getDataBindingConfig();
+
+        ViewDataBinding binding = DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-        SparseArray<Object> bindingParams= dataBindingConfig.getBindingParams();
-        for (int i = 0 , length=bindingParams.size(); i < length; i++) {
-            binding.setVariable(bindingParams.keyAt(i),bindingParams.valueAt(i));
+        binding.setVariable(dataBindingConfig.getVmVariableId(), dataBindingConfig.getStateViewModel());
+        SparseArray<Object> bindingParams = dataBindingConfig.getBindingParams();
+        for (int i = 0, length = bindingParams.size(); i < length; i++) {
+            binding.setVariable(bindingParams.keyAt(i), bindingParams.valueAt(i));
         }
-        mBinding=binding;
+        mBinding = binding;
         return binding.getRoot();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    public boolean isDebug() {
+        return mActivity.getApplicationContext().getApplicationInfo() != null &&
+                (mActivity.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
     }
 
     @Override

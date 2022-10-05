@@ -23,7 +23,7 @@ package com.xiaoyingbo.lib_architecture.data.response;
  */
 public class ResponseStatus {
 
-    private String responseCode = "";
+    private String responseMsg = "";
     private boolean success = true;
     private @ResultSource int source = ResultSource.NETWORK;
 
@@ -31,7 +31,7 @@ public class ResponseStatus {
     }
 
     public ResponseStatus(String responseCode, boolean success) {
-        this.responseCode = responseCode;
+        this.responseMsg = responseCode;
         this.success = success;
     }
 
@@ -40,8 +40,8 @@ public class ResponseStatus {
         this.source = source;
     }
 
-    public String getResponseCode() {
-        return responseCode;
+    public String getResponseMsg() {
+        return responseMsg;
     }
 
     public boolean isSuccess() {
