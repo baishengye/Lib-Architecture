@@ -30,13 +30,16 @@ public class ResponseStatus {
     public ResponseStatus() {
     }
 
-    public ResponseStatus(String responseCode, boolean success) {
-        this.responseMsg = responseCode;
+    public ResponseStatus(String responseMsg, boolean success) {
+        this.responseMsg = responseMsg;
         this.success = success;
+        if(success&&responseMsg==null){
+            this.responseMsg= BSYUtils.getApp().getResources().getString(R.string.request_success);
+        }
     }
 
-    public ResponseStatus(String responseCode, boolean success,@ResultSource int source) {
-        this(responseCode, success);
+    public ResponseStatus(String responseMsg, boolean success,@ResultSource int source) {
+        this(responseMsg, success);
         this.source = source;
     }
 
