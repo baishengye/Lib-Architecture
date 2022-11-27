@@ -1,12 +1,10 @@
 package com.xiaoyingbo.lib_architecture.ui.bind;
 
 import androidx.databinding.BindingAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
-import com.xiaoyingbo.lib_util.BSY.BSYLogUtils;
-import com.xiaoyingbo.lib_util.BSY.BSYUtils;
+import com.xiaoyingbo.lib_util.BSY.util.BSYLogUtils;
+import com.xiaoyingbo.lib_util.BSY.util.BSYUtils;
 
 import java.util.Locale;
 

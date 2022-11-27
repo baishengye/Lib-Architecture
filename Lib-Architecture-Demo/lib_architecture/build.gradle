@@ -1,8 +1,9 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-    id 'maven-publish'
-}
+//region plugin的引入顺序是有规定的,需严格按照以下规则
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'maven-publish'
+//endregion
 
 android {
     compileSdk 32
@@ -10,6 +11,7 @@ android {
     defaultConfig {
         minSdk 29
         targetSdk 32
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -57,25 +59,29 @@ afterEvaluate {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
 
-    api 'androidx.core:core-ktx:1.8.0'
+    api 'androidx.core:core:1.8.0'
     api 'androidx.appcompat:appcompat:1.5.1'
     api 'com.google.android.material:material:1.6.1'
-
+    api "androidx.multidex:multidex:2.0.1"
 
     //navigation相关
-    api 'androidx.navigation:navigation-runtime-ktx:2.5.2'
-    api 'androidx.navigation:navigation-fragment-ktx:2.5.2'
-    api 'androidx.navigation:navigation-ui-ktx:2.5.2'
+    api 'androidx.navigation:navigation-runtime:2.5.2'
+    api 'androidx.navigation:navigation-fragment:2.5.2'
+    api 'androidx.navigation:navigation-ui:2.5.2'
 
     //lifecycle相关
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.5.1")
     // 仅Lifecycles (没有 ViewModel 或 LiveData)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-runtime:2.5.1")
     // 为 ViewModel 保存状态模块
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
     // 或者 - 如果使用 Java8，请使用以下代码代替生命周期编译器
@@ -87,11 +93,13 @@ dependencies {
     // 可选 - 对 LiveData 的 ReactiveStreams 支持
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.1")
 
-//    implementation 'com.github.baishengye:Lib-Util:v0.0.1'
     implementation project(path: ':lib_util')
 
     //MviDispatcher:唯一信息源头
     implementation 'com.kunminx.arch:mvi-dispatch:7.4.0-beta'
+
+    //使用ARouter
+
 
     testApi 'junit:junit:4.13.2'
     androidTestApi 'androidx.test.ext:junit:1.1.3'

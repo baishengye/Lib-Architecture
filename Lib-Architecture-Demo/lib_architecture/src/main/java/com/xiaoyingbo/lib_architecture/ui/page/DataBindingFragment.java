@@ -19,10 +19,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-public abstract class DataBindingFragment extends Fragment {
+public abstract class DataBindingFragment<T extends ViewDataBinding> extends Fragment {
 
     protected AppCompatActivity mActivity;
-    private ViewDataBinding mBinding;
+    protected T mBinding;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,7 +55,7 @@ public abstract class DataBindingFragment extends Fragment {
 
         DataBindingConfig dataBindingConfig = getDataBindingConfig();
 
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container, false);
+        T binding = DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         binding.setVariable(dataBindingConfig.getVmVariableId(), dataBindingConfig.getStateViewModel());
         SparseArray<Object> bindingParams = dataBindingConfig.getBindingParams();

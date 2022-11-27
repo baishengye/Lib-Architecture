@@ -14,11 +14,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 
-public abstract class DataBindingDialogFragment extends DialogFragment {
+public abstract class DataBindingDialogFragment<T extends ViewDataBinding> extends DialogFragment {
     /**此Fragment所依附的Activity*/
     protected AppCompatActivity mActivity;
 
-    private ViewDataBinding mBinding;
+    protected T mBinding;
 
 
     /**当activity和fragment建立联系时调用*/
@@ -51,7 +51,7 @@ public abstract class DataBindingDialogFragment extends DialogFragment {
             @Nullable Bundle savedInstanceState) {
         DataBindingConfig dataBindingConfig=getDataBindingConfig();
 
-        ViewDataBinding binding= DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container,false);
+        T binding= DataBindingUtil.inflate(inflater, dataBindingConfig.getLayout(), container,false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         SparseArray<Object> bindingParams= dataBindingConfig.getBindingParams();
         for (int i = 0 , length=bindingParams.size(); i < length; i++) {

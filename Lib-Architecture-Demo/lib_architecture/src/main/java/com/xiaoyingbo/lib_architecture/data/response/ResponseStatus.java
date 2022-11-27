@@ -16,6 +16,9 @@
 
 package com.xiaoyingbo.lib_architecture.data.response;
 
+import com.xiaoyingbo.lib_architecture.R;
+import com.xiaoyingbo.lib_util.BSY.util.BSYUtils;
+
 /**
  *本类仅用作示例参考，请根据 "实际项目需求" 配置自定义的 "响应状态元信息"
  * <p>

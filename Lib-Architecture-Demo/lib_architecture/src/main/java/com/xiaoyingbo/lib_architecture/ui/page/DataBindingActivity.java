@@ -1,6 +1,7 @@
 package com.xiaoyingbo.lib_architecture.ui.page;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,11 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Lifecycle;
 
-public abstract class DataBindingActivity extends AppCompatActivity {
+public abstract class DataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
-    private ViewDataBinding mBinding;
-    private TextView mTvStrictModeTip;
+    protected T mBinding;
 
     protected abstract void initViewModel();
 
@@ -49,7 +50,7 @@ public abstract class DataBindingActivity extends AppCompatActivity {
 
         // 如这么说无体会，详见 https://xiaozhuanlan.com/topic/9816742350 和 https://xiaozhuanlan.com/topic/2356748910
 
-        ViewDataBinding binding = DataBindingUtil.setContentView(this, dataBindingConfig.getLayout());
+        T binding = DataBindingUtil.setContentView(this, dataBindingConfig.getLayout());
         binding.setLifecycleOwner(this);
         binding.setVariable(dataBindingConfig.getVmVariableId(), dataBindingConfig.getStateViewModel());
         SparseArray<Object> bindingParams = dataBindingConfig.getBindingParams();

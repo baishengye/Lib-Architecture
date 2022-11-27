@@ -7,11 +7,12 @@ import android.net.Uri;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 
 import com.xiaoyingbo.lib_architecture.ui.scope.ViewModelScope;
 
-public abstract class BaseDialogFragment extends DataBindingDialogFragment{
+public abstract class BaseDialogFragment<T extends ViewDataBinding> extends DataBindingDialogFragment<T>{
     private final ViewModelScope mViewModelScope = new ViewModelScope();
 
     /**获取Fragment作用域下的ViewModel*/

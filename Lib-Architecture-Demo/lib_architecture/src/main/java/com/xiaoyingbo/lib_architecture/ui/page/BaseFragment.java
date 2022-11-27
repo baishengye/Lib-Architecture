@@ -7,13 +7,14 @@ import android.net.Uri;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.xiaoyingbo.lib_architecture.ui.scope.ViewModelScope;
 
-public abstract class BaseFragment extends DataBindingFragment{
+public abstract class BaseFragment<T extends ViewDataBinding> extends DataBindingFragment<T>{
     private final ViewModelScope mViewModelScope = new ViewModelScope();
 
     protected <T extends ViewModel> T getFragmentScopeViewModel(@NonNull Class<T> modelClass) {

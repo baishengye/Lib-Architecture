@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.xiaoyingbo.lib_util.BSY.BSYUtils;
+import com.xiaoyingbo.lib_util.BSY.util.BSYUtils;
 
 /**
  * Create by KunMinX at 19/10/11
