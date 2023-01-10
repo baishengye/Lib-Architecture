@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 29
+        minSdk 28
         targetSdk 32
         multiDexEnabled true
 
@@ -23,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -64,6 +65,9 @@ kapt {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(path: ':lib_util')
 
     api 'androidx.core:core:1.8.0'
     api 'androidx.appcompat:appcompat:1.5.1'
@@ -93,13 +97,8 @@ dependencies {
     // 可选 - 对 LiveData 的 ReactiveStreams 支持
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.1")
 
-    implementation project(path: ':lib_util')
-
     //MviDispatcher:唯一信息源头
     implementation 'com.kunminx.arch:mvi-dispatch:7.4.0-beta'
-
-    //使用ARouter
-
 
     testApi 'junit:junit:4.13.2'
     androidTestApi 'androidx.test.ext:junit:1.1.3'

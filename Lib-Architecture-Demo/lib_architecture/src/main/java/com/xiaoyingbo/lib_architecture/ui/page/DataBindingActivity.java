@@ -16,6 +16,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.Lifecycle;
 
+/**
+ * dataBinding基类*/
 public abstract class DataBindingActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     protected T mBinding;

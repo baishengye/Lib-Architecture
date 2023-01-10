@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,9 @@ import androidx.lifecycle.ViewModel;
 import com.xiaoyingbo.lib_architecture.data.response.networkState.NetworkStateCallback;
 import com.xiaoyingbo.lib_architecture.data.response.networkState.NetworkStateManager;
 import com.xiaoyingbo.lib_architecture.ui.scope.ViewModelScope;
-import com.xiaoyingbo.lib_util.BSY.util.BSYBarUtils;
 
+/**
+ * 技术基类*/
 public abstract class BaseActivity<T extends ViewDataBinding> extends DataBindingActivity<T> {
 
     private final ViewModelScope mViewModelScope = new ViewModelScope();
@@ -37,10 +39,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends DataBindin
 
         super.onCreate(savedInstanceState);
 
-        //沉浸式体验
-        BSYBarUtils.setStatusBarColor(this, Color.TRANSPARENT);
-        BSYBarUtils.setStatusBarLightMode(this,isLightMode());
-
         getLifecycle().addObserver(mNetworkStateManager);
     }
 
@@ -57,6 +55,10 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends DataBindin
 
     protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
         return mViewModelScope.getApplicationScopeViewModel(modelClass);
+    }
+
+    protected ViewGroup getContentView(){
+        return findViewById(Window.ID_ANDROID_CONTENT);
     }
 
     protected void toggleSoftInput() {
